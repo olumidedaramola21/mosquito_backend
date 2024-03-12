@@ -6,7 +6,8 @@ const mongoose = require("mongoose")
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log('Connected!'));
+  .then(() => console.log('Connected!'))
+  .catch((err) => console.log(err));
 
 app.listen("5000", () => {
   console.log("Backend is running");
