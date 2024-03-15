@@ -25,7 +25,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE ai delete hard to debug
+// DELETE 
 router.delete("/:id", async (req, res) => {
   if (req.body.userId === req.params.id) {
     try {
@@ -44,5 +44,19 @@ router.delete("/:id", async (req, res) => {
     res.status(401).json("You can only delete your account!");
   }
 });
+
+// // GET USER
+router.get("/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const {password, ...others} = user._doc
+      res.status(200).json(others)
+      if (!user) {
+        return res.status(404).json({error: "User not found"});
+      }
+    } catch (err) {
+      res.status(500).json({ error: "Internal server error" })
+    }
+  })
 
 module.exports = router;
